@@ -229,6 +229,8 @@ nav {
     cursor: pointer;
     z-index: 2001;
     margin-left: 1.5rem;
+    pointer-events: auto;
+    /* Re-enable for the toggle button */
 }
 
 .menu-toggle span {
@@ -296,8 +298,16 @@ nav {
     }
 
     .logo-img {
-        height: 250px;
-        /* Smaller logo on mobile */
+        height: min(200px, 40vw);
+        /* Responsive height for mobile */
+        margin-top: -20px;
+        /* Reset the massive desktop pull-up */
+        filter: drop-shadow(0 0 20px var(--neon-blue));
+    }
+
+    header {
+        padding: 0.5rem 5%;
+        /* Tighten header on mobile */
     }
 }
 
