@@ -255,6 +255,8 @@ nav {
     flex-direction: column;
     border-left: 5px solid var(--neon-red);
     backdrop-filter: blur(10px);
+    pointer-events: auto;
+    /* Essential to enable clicking the 'X' and links */
 }
 
 .mobile-sidebar.active {
@@ -298,11 +300,14 @@ nav {
     }
 
     .logo-img {
-        height: min(200px, 40vw);
-        /* Responsive height for mobile */
-        margin-top: -20px;
-        /* Reset the massive desktop pull-up */
-        filter: drop-shadow(0 0 20px var(--neon-blue));
+        height: 600px;
+        /* 4x bigger than standard mobile sized logos */
+        width: auto;
+        max-width: 150vw;
+        /* Allow it to be massive and bleed off if needed */
+        margin-top: -100px;
+        /* Pull it up for the 'over-the-top' look */
+        filter: drop-shadow(0 0 30px var(--neon-blue));
     }
 
     header {
