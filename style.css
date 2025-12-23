@@ -299,20 +299,34 @@ nav {
         display: flex;
     }
 
+    nav {
+        justify-content: flex-end;
+        position: relative;
+        min-height: 60px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
     .logo-img {
         height: 600px;
-        /* 4x bigger than standard mobile sized logos */
         width: auto;
-        max-width: 150vw;
-        /* Allow it to be massive and bleed off if needed */
-        margin-top: -100px;
-        /* Pull it up for the 'over-the-top' look */
+        max-width: 90vw;
+        /* Keep it within screen bounds for perfect centering */
+        margin-top: -120px;
         filter: drop-shadow(0 0 30px var(--neon-blue));
+        object-fit: contain;
     }
 
     header {
         padding: 0.5rem 5%;
-        /* Tighten header on mobile */
     }
 }
 
