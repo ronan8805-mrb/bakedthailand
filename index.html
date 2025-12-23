@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baked Phuket | Premium Cannabis & Street Art</title>
+    <meta name="description"
+        content="Premium cannabis dispensary & coffeeshop in Phuket, Thailand. Street-art, luxury hype, and tropical vibes. Presented by UK rapper Tunde.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Sedgwick+Ave+Display&family=Rock+Salt&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <div id="loading-screen" class="loading-screen">
+        <video id="intro-video" muted playsinline autoplay>
+            <source src="assets/baked-intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="skip-btn" id="skip-intro">SKIP INTRO</div>
+    </div>
+
+    <div class="smoke-overlay"></div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="assets/logo_hero.png" alt="Baked Phuket" class="logo-img">
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#products">Products</a>
+                <a href="#location">Location</a>
+                <a href="auth.html" class="nav-btn-join">Join / Login</a>
+                <div id="user-display"
+                    style="display:none; margin-left:1rem; font-weight:bold; color:var(--text-color);">
+                    <span id="member-id-tag"></span>
+                    <a href="dashboard.html" style="margin-left:10px;">Dashboard</a>
+                </div>
+            </div>
+            <div class="menu-toggle" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-sidebar" id="mobile-sidebar">
+            <div class="close-btn" id="close-sidebar">&times;</div>
+            <div class="sidebar-links">
+                <a href="#about" class="sidebar-link">About</a>
+                <a href="#gallery" class="sidebar-link">Gallery</a>
+                <a href="#products" class="sidebar-link">Products</a>
+                <a href="#location" class="sidebar-link">Location</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <video class="hero-video" autoplay muted loop playsinline poster="assets/hero.jpg">
+                <source src="assets/baked-hero1.mp4" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <div class="hero-btns">
+                    <a href="auth.html" class="btn btn-primary">SIGN UP NOW</a>
+                    <p class="btn-subtext">FOR 15% OFF FIRST ORDER IN SHOP</p>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>SCROLL</span>
+                <div class="arrow"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">CHILL VIBES ONLY</h2>
+                <div class="about-content">
+                    <p>Premium cannabis dispensary & coffeeshop in Phuket, Thailand. Epic murals, exotics, Baked edibles
+                        & merchandise. Chill vibes, everyone welcome.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">THE SHOP</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="assets/gallery1.jpg" alt="Shop Interior"></div>
+                    <div class="gallery-item"><img src="assets/gallery2.jpg" alt="Murals"></div>
+                    <div class="gallery-item"><img src="assets/gallery3.jpg" alt="Edibles"></div>
+                    <div class="gallery-item"><img src="assets/gallery4.jpg" alt="Merch"></div>
+                    <div class="gallery-item"><img src="assets/gallery5.jpg" alt="Tunde in shop"></div>
+                    <div class="gallery-item"><img src="assets/gallery6.jpg" alt="Tuk-tuk outside"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <h2 class="section-title">EXOTICS & MORE</h2>
+                <div class="product-cards">
+                    <div class="product-card">
+                        <div class="card-img"><img src="assets/prod1.png" alt="Premium Exotics"></div>
+                        <h3>Premium Exotics</h3>
+                        <p>Top shelf buds from the finest growers.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="card-img"><img src="assets/prod2.jpg" alt="Baked Edibles"></div>
+                        <h3>Baked Edibles</h3>
+                        <p>Handcrafted cookies & gummies.</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="card-img"><img src="assets/prod3.jpg" alt="Merch"></div>
+                        <h3>Official Merch</h3>
+                        <p>Limited edition tees & caps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Hours Section -->
+        <section id="location" class="location-section">
+            <div class="container">
+                <div class="location-grid">
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.5645543788!2d98.384666!3d7.939222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x305031b67c13b355%3A0x6a0669b6a1215b0b!2s92%2F26-27%20Moo%202%2C%20Kohkaew%2C%20Muang%20Phuket%2083000%2C%20Thailand!5e0!3m2!1sen!2sth!4v1703314400000!5m2!1sen!2sth"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="info-content">
+                        <h2 class="section-title">LOCATION</h2>
+                        <p class="address">92/26-27 Moo 2, Kohkaew, Muang Phuket 83000, Thailand</p>
+                        <p class="hours">Open daily 11 AM – late</p>
+                        <a href="https://instagram.com/bakedthailand" target="_blank" class="instagram-link">
+                            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="24">
+                            @bakedthailand
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-tagline">Doors officially open!</p>
+            <div class="social-icons">
+                <a href="https://instagram.com/bakedthailand" target="_blank"><img
+                        src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="30"></a>
+            </div>
+            <p class="copyright">&copy; 2025 Baked Phuket | <a href="admin.html" class="admin-link">Admin Portal</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

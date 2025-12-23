@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Baked Phuket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Sedgwick+Ave+Display&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-auth-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+        }
+
+        .admin-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            border: 10px solid var(--neon-red);
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-auth-container">
+        <div class="admin-card">
+            <h1 style="font-family:var(--font-heading); color:var(--neon-blue); margin-bottom:2rem; text-align:center;">
+                ADMIN PORTAL</h1>
+            <form id="admin-login-form">
+                <div class="form-group" style="margin-bottom:1.5rem;">
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:bold;">Username</label>
+                    <input type="text" id="admin-user"
+                        style="width:100%; padding:1rem; border:2px solid #eee; border-radius:10px;" required>
+                </div>
+                <div class="form-group" style="margin-bottom:2rem;">
+                    <label style="display:block; margin-bottom:0.5rem; font-weight:bold;">Password</label>
+                    <input type="password" id="admin-pass"
+                        style="width:100%; padding:1rem; border:2px solid #eee; border-radius:10px;" required>
+                </div>
+                <button type="submit"
+                    style="width:100%; padding:1rem; background:black; color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">Enter
+                    Matrix</button>
+            </form>
+            <p id="admin-error" style="color:red; margin-top:1rem; display:none; text-align:center;">Invalid
+                Credentials!</p>
+            <p style="margin-top:2rem; text-align:center;"><a href="index.html"
+                    style="color:#666; font-size:0.8rem;">Return to reality</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+            const error = document.getElementById('admin-error');
+
+            if (user === 'admin' && pass === 'admin') {
+                localStorage.setItem('isAdmin', 'true');
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                error.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
