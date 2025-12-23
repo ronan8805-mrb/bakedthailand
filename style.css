@@ -706,6 +706,11 @@ footer {
     .hero-content h1 {
         font-size: 25vw;
     }
+
+    .loading-screen video {
+        object-fit: contain;
+        background-color: black;
+    }
 }
 
 /* Scroll Indicator */
