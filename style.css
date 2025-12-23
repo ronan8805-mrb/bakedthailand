@@ -291,24 +291,33 @@ nav {
 }
 
 @media (max-width: 900px) {
+    header {
+        position: absolute;
+    }
+
     .nav-links {
         display: none;
     }
 
     .menu-toggle {
         display: flex;
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        z-index: 5000;
+        pointer-events: auto;
     }
 
     nav {
         justify-content: flex-end;
         position: relative;
-        min-height: 60px;
     }
 
     .logo {
-        position: fixed;
+        position: absolute;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-55%);
+        /* Nudged left from -50% for visual balance */
         top: 0;
         width: 100%;
         display: flex;
@@ -318,11 +327,10 @@ nav {
     }
 
     .logo-img {
-        height: 600px;
+        height: min(500px, 80vw);
         width: auto;
-        max-width: 90vw;
-        /* Keep it within screen bounds for perfect centering */
-        margin-top: -120px;
+        max-width: 95vw;
+        margin-top: -80px;
         filter: drop-shadow(0 0 30px var(--neon-blue));
         object-fit: contain;
     }
