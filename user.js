@@ -6,10 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Signup Handling
     const joinForm = document.getElementById('join-form');
     if (joinForm) {
-        joinForm.addEventListener('submit', (e) => {
+        joinForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('join-name').value;
             const email = document.getElementById('join-email').value;
+            const idNumber = document.getElementById('join-id-number').value;
+            const idPhotoFile = document.getElementById('join-id-photo').files[0];
             const password = document.getElementById('join-pass').value;
 
             const members = JSON.parse(localStorage.getItem('baked_members') || '[]');
@@ -19,23 +21,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const newMember = {
-                memberId: 'BKD-' + Math.floor(1000 + Math.random() * 9000),
-                name,
-                email,
-                password,
-                status: 'Pending', // Initial status
-                purchases: [],
-                joinDate: new Date().toLocaleDateString()
+            // Convert photo to base64
+            const reader = new FileReader();
+            reader.readAsDataURL(idPhotoFile);
+            reader.onload = function () {
+                const idPhotoBase64 = reader.result;
+
+                const newMember = {
+                    memberId: 'BKD-' + Math.floor(1000 + Math.random() * 9000),
+                    name,
+                    email,
+                    idNumber,
+                    idPhoto: idPhotoBase64,
+                    password,
+                    status: 'Pending',
+                    purchases: [],
+                    joinDate: new Date().toLocaleDateString()
+                };
+
+                members.push(newMember);
+                localStorage.setItem('baked_members', JSON.stringify(members));
+                alert('Signup Successful! Your ID verification is currently under review. Welcome to Baked Phuket.');
+
+                // Auto login for demo
+                localStorage.setItem('currentUser', JSON.stringify(newMember));
+                window.location.href = 'dashboard.html';
             };
-
-            members.push(newMember);
-            localStorage.setItem('baked_members', JSON.stringify(members));
-            alert('Signup Successful! Your membership is currently under review by the Bake Phuket team.');
-
-            // Auto login for demo
-            localStorage.setItem('currentUser', JSON.stringify(newMember));
-            window.location.href = 'dashboard.html';
         });
     }
 

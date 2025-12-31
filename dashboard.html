@@ -9,68 +9,139 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        :root {
+            --dashboard-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+        }
+
+        body {
+            background-color: var(--dashboard-bg);
+            color: #fff;
+        }
+
         .dashboard-container {
-            padding: 100px 5%;
+            padding: 80px 5%;
             min-height: 100vh;
-            background: #f9f9f9;
         }
 
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--neon-red);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .member-header-info h1 {
             font-family: var(--font-heading);
-            font-size: 3rem;
-            color: var(--text-color);
+            font-size: 2.5rem;
+            color: var(--neon-red);
         }
 
         .member-id-badge {
             background: var(--neon-blue);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
         }
 
+        /* Tabs Interface */
+        .dash-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--neon-red);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -11px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--neon-red);
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 20px;
-            border: 2px solid #eee;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
             text-align: center;
         }
 
         .stat-card h3 {
-            color: #666;
-            margin-bottom: 1rem;
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
         .stat-card .value {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: bold;
-            color: var(--neon-red);
+            color: var(--neon-blue);
         }
 
+        /* History Table */
         .purchase-table-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 30px;
-            border: 5px solid var(--neon-blue);
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
             overflow-x: auto;
         }
 
@@ -83,88 +154,517 @@
         td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border-color);
         }
 
         th {
+            color: #888;
             font-weight: bold;
-            color: var(--text-color);
         }
 
         .source-tag {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
             text-transform: uppercase;
             font-weight: 700;
         }
 
         .tag-shop {
-            background: #e3f2fd;
-            color: #1565c0;
+            background: #1565c0;
+            color: white;
         }
 
         .tag-online {
-            background: #f3e5f5;
-            color: #7b1fa2;
+            background: #7b1fa2;
+            color: white;
+        }
+
+        .tag-delivery {
+            background: var(--neon-red);
+            color: white;
+        }
+
+        /* Delivery Section */
+        .delivery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .delivery-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .delivery-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-red);
+            box-shadow: 0 5px 20px rgba(255, 49, 49, 0.2);
+        }
+
+        .delivery-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: grayscale(0.5);
+            transition: 0.3s;
+        }
+
+        .delivery-card:hover img {
+            filter: grayscale(0);
+        }
+
+        .card-info {
+            padding: 1.5rem;
+        }
+
+        .card-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+        }
+
+        .card-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            height: 2.8rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--neon-blue);
+        }
+
+        .btn-add {
+            background: var(--neon-red);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #ff4d4d;
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        /* Cart Sidebar */
+        .cart-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--neon-red);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            font-size: 1.5rem;
+        }
+
+        #cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: white;
+            color: var(--neon-red);
+            font-size: 0.8rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: #111;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            z-index: 101;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-panel.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-cart {
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #222;
+        }
+
+        .cart-item-info h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .cart-item-info p {
+            margin: 0;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .cart-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--neon-blue);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            background: var(--neon-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-checkout:hover {
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        /* Payment Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 200;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .pay-opt {
+            border: 2px solid #333;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pay-opt:hover,
+        .pay-opt.selected {
+            border-color: var(--neon-red);
+            background: rgba(255, 49, 49, 0.1);
+        }
+
+        .pay-opt i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .crypto-details {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+
+        .wallet-addr {
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 1rem 0;
+            color: var(--neon-blue);
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: white;
+            margin: 1rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: black;
+            font-weight: bold;
+        }
+
+        .loading-dots:after {
+            content: '.';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+
+            0%,
+            20% {
+                content: '.';
+            }
+
+            40% {
+                content: '..';
+            }
+
+            60% {
+                content: '...';
+            }
+
+            80%,
+            100% {
+                content: '';
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="dashboard-container">
+        <!-- Header -->
         <div class="dashboard-header">
             <div class="member-header-info">
-                <h1 id="welcome-name">Welcome Back!</h1>
+                <h1 id="welcome-name">Yo!</h1>
                 <p>Status: <span id="member-status" style="font-weight:bold;">Active</span></p>
             </div>
             <div style="text-align:right;">
                 <div class="member-id-badge" id="member-id-display">ID: BKD-000</div>
                 <button onclick="logout()"
-                    style="margin-top:10px; cursor:pointer; background:none; border:none; text-decoration:underline; color:#666;">Log
+                    style="margin-top:10px; cursor:pointer; background:none; border:none; text-decoration:underline; color:#888;">Log
                     Out</button>
             </div>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Total Purchases</h3>
-                <div class="value" id="total-orders">0</div>
+        <!-- Tabs -->
+        <div class="dash-tabs">
+            <button class="tab-btn active" onclick="switchTab('overview')">Account Overview</button>
+            <button class="tab-btn" onclick="switchTab('delivery')">Order Delivery</button>
+        </div>
+
+        <!-- Overview Content -->
+        <div id="overview-tab" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Purchases</h3>
+                    <div class="value" id="total-orders">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Points Earned</h3>
+                    <div class="value" id="member-points">0</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Latest Item</h3>
+                    <div class="value" id="latest-item" style="font-size:1.2rem;">None</div>
+                </div>
             </div>
-            <div class="stat-card">
-                <h3>Points Earned</h3>
-                <div class="value" id="member-points">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Latest Item</h3>
-                <div class="value" id="latest-item" style="font-size:1.5rem;">None</div>
+
+            <h2 style="font-family: var(--font-heading); margin-bottom: 1.5rem; font-size: 2rem;">Recent Activity</h2>
+            <div class="purchase-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Order ID</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Source</th>
+                        </tr>
+                    </thead>
+                    <tbody id="purchase-history-body">
+                        <!-- Purchases will be populated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <h2 style="font-family: var(--font-heading); margin-bottom: 2rem; font-size: 2.5rem;">Purchase History</h2>
-        <div class="purchase-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Order ID</th>
-                        <th>Items</th>
-                        <th>Total</th>
-                        <th>Source</th>
-                    </tr>
-                </thead>
-                <tbody id="purchase-history-body">
-                    <!-- Purchases will be populated here -->
-                </tbody>
-            </table>
+        <!-- Delivery Content -->
+        <div id="delivery-tab" class="tab-content">
+            <div style="margin-bottom: 2rem;">
+                <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--neon-blue);">Baked Delivery
+                </h2>
+                <p style="color: #888;">Premium strains & edibles delivered to your door in Phuket.</p>
+            </div>
+
+            <div class="delivery-grid" id="delivery-menu">
+                <!-- Products will be populated here -->
+            </div>
         </div>
 
-        <p style="margin-top:3rem; text-align:center;"><a href="index.html" style="color:var(--text-color);">← Back to
-                Shop</a></p>
+        <p style="margin-top:3rem; text-align:center;"><a href="index.html"
+                style="color:var(--neon-blue); text-decoration: none;">← Back to Main Page</a></p>
     </div>
 
+    <!-- Cart Sidebar -->
+    <div class="cart-toggle" onclick="toggleCart()">
+        🛍️ <div id="cart-count">0</div>
+    </div>
+
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-header">
+            <h2 style="font-family: var(--font-heading); margin: 0;">Your Bag</h2>
+            <div class="close-cart" onclick="toggleCart()">&times;</div>
+        </div>
+        <div class="cart-items" id="cart-items-list">
+            <!-- Cart items here -->
+            <p style="text-align: center; color: #555; margin-top: 3rem;">Your bag is empty.</p>
+        </div>
+        <div class="cart-total">
+            <div class="total-row">
+                <span>Total</span>
+                <span id="cart-total-value">THB 0</span>
+            </div>
+            <button class="btn-checkout" id="checkout-btn" disabled onclick="openPaymentModal()">Checkout Now</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <div style="position:absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer;"
+                onclick="closeModal()">×</div>
+            <h2 style="font-family: var(--font-heading); margin-bottom: 0.5rem; color: var(--neon-red);">Finalize Order
+            </h2>
+            <p style="color: #888; margin-bottom: 2rem;">How would you like to pay?</p>
+
+            <div class="payment-options">
+                <div class="pay-opt" id="opt-cod" onclick="selectPayment('cod')">
+                    <i>💵</i>
+                    <span>Cash on Delivery</span>
+                </div>
+                <div class="pay-opt" id="opt-crypto" onclick="selectPayment('crypto')">
+                    <i>₿</i>
+                    <span>Pay with Crypto</span>
+                </div>
+            </div>
+
+            <div id="cod-details" class="crypto-details">
+                <p>Please have the exact amount ready for the rider.</p>
+                <div class="total-row" style="margin-top:20px; justify-content:center; gap: 10px;">
+                    <span style="font-size:1rem; color:#888;">Total Due:</span>
+                    <span id="pay-total-cod" style="font-size:1.2rem; color:var(--neon-blue);">THB 0</span>
+                </div>
+                <button class="btn-checkout" style="margin-top:20px;" onclick="placeOrder('cod')">Confirm Order</button>
+            </div>
+
+            <div id="crypto-details" class="crypto-details">
+                <p>Send precisely the USDT equivalent to:</p>
+                <div class="wallet-addr" id="wallet-address">0xBB4...880F</div>
+                <div class="qr-placeholder" id="qr-display">QR CODE</div>
+                <p style="font-size: 0.8rem; color: #888;">Network: TRON (TRC-20)</p>
+                <div style="margin: 1rem 0; font-weight: bold; color: var(--neon-red);" class="loading-dots">
+                    Verifying transaction
+                </div>
+                <button class="btn-checkout" style="opacity: 0.5; cursor: not-allowed;">Awaiting Payment...</button>
+            </div>
+
+            <div id="success-message" class="crypto-details">
+                <h3 style="color: #4CAF50; font-size: 2rem;">Order Received!</h3>
+                <p>Your exotics are being prepared for delivery.</p>
+                <p style="margin-top: 1rem;">Tracking ID: <span id="new-order-id"
+                        style="font-weight: bold; color: var(--neon-blue);">#000000</span></p>
+                <button class="btn-checkout" style="margin-top: 2rem; background: #4CAF50;"
+                    onclick="location.reload()">Great!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
     <script src="user.js"></script>
     <script>
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (tab === 'overview') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('overview-tab').classList.add('active');
+            } else {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('delivery-tab').classList.add('active');
+                renderDeliveryMenu();
+            }
+        }
+
+        // Dashboard logic
         document.addEventListener('DOMContentLoaded', () => {
             const user = JSON.parse(localStorage.getItem('currentUser'));
             if (!user) {
@@ -175,7 +675,7 @@
             document.getElementById('welcome-name').innerText = `Yo, ${user.name}!`;
             document.getElementById('member-id-display').innerText = `ID: ${user.memberId}`;
             document.getElementById('member-status').innerText = user.status;
-            document.getElementById('member-status').style.color = user.status === 'Approved' ? 'green' : 'orange';
+            document.getElementById('member-status').style.color = user.status === 'Approved' ? '#4CAF50' : 'orange';
 
             renderPurchases();
         });
@@ -192,6 +692,11 @@
                 document.getElementById('latest-item').innerText = orders[orders.length - 1].items;
             }
 
+            if (orders.length === 0) {
+                historyBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No activity found yet.</td></tr>';
+                return;
+            }
+
             historyBody.innerHTML = orders.map(order => `
                 <tr>
                     <td>${order.date}</td>
@@ -200,11 +705,150 @@
                     <td>THB ${order.total}</td>
                     <td><span class="source-tag tag-${order.source}">${order.source}</span></td>
                 </tr>
-            `).join('');
+            `).reverse().join('');
+        }
 
-            if (orders.length === 0) {
-                historyBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No purchases found yet. Visit us in shop or shop online!</td></tr>';
+        // Delivery Menu Rendering
+        function renderDeliveryMenu() {
+            const menu = document.getElementById('delivery-menu');
+            menu.innerHTML = deliveryProducts.map(prod => `
+                <div class="delivery-card">
+                    <img src="${prod.image}" alt="${prod.name}">
+                    <div class="card-info">
+                        <h3>${prod.name}</h3>
+                        <p>${prod.description}</p>
+                        <div class="card-footer">
+                            <span class="price">THB ${prod.price}</span>
+                            <button class="btn-add" onclick="addToCart(${prod.id})">Add to Bag</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart Logic
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cart-panel').classList.toggle('open');
+        }
+
+        function addToCart(productId) {
+            const product = deliveryProducts.find(p => p.id === productId);
+            cart.push(product);
+            updateCart();
+
+            // Show feedback
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = 'Added! ✓';
+            btn.style.background = '#4CAF50';
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = 'var(--neon-red)';
+            }, 2000);
+        }
+
+        function updateCart() {
+            const list = document.getElementById('cart-items-list');
+            const totalVal = document.getElementById('cart-total-value');
+            const count = document.getElementById('cart-count');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            count.innerText = cart.length;
+
+            if (cart.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #555; margin-top: 3rem;">Your bag is empty.</p>';
+                totalVal.innerText = 'THB 0';
+                checkoutBtn.disabled = true;
+                return;
             }
+
+            checkoutBtn.disabled = false;
+            let total = 0;
+            list.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>THB ${item.price}</p>
+                        </div>
+                        <span style="cursor:pointer;" onclick="removeFromCart(${index})">🗑️</span>
+                    </div>
+                `;
+            }).join('');
+
+            totalVal.innerText = `THB ${total}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Payment logic
+        function openPaymentModal() {
+            let total = 0;
+            cart.forEach(item => total += item.price);
+            document.getElementById('pay-total-cod').innerText = `THB ${total}`;
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function selectPayment(type) {
+            document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('selected'));
+            document.querySelectorAll('.crypto-details').forEach(d => d.style.display = 'none');
+
+            if (type === 'cod') {
+                document.getElementById('opt-cod').classList.add('selected');
+                document.getElementById('cod-details').style.display = 'block';
+            } else {
+                document.getElementById('opt-crypto').classList.add('selected');
+                document.getElementById('crypto-details').style.display = 'block';
+
+                // Simulate crypto verification
+                setTimeout(() => {
+                    placeOrder('crypto');
+                }, 8000);
+            }
+        }
+
+        function placeOrder(method) {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const orderId = Math.floor(100000 + Math.random() * 900000);
+            let total = 0;
+            const itemsNames = cart.map(i => i.name).join(', ');
+            cart.forEach(i => total += i.price);
+
+            const newOrder = {
+                orderId: orderId,
+                date: new Date().toLocaleDateString(),
+                items: itemsNames,
+                total: total,
+                source: 'delivery'
+            };
+
+            // Update user in baked_members
+            let members = JSON.parse(localStorage.getItem('baked_members'));
+            const index = members.findIndex(m => m.email === user.email);
+            if (!members[index].purchases) members[index].purchases = [];
+            members[index].purchases.push(newOrder);
+
+            localStorage.setItem('baked_members', JSON.stringify(members));
+            localStorage.setItem('currentUser', JSON.stringify(members[index]));
+
+            // Switch UI to success
+            document.querySelectorAll('.crypto-details').forEach(d => d.style.display = 'none');
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('new-order-id').innerText = `#${orderId}`;
+
+            // Clear cart
+            cart = [];
+            updateCart();
         }
 
         function logout() {

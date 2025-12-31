@@ -133,6 +133,7 @@
                         <th>Member ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Passport/ID</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -160,6 +161,23 @@
                 <tbody id="admin-order-list"></tbody>
             </table>
         </section>
+    </div>
+
+    <!-- ID View Modal -->
+    <div class="modal" id="id-view-modal">
+        <div class="modal-content" style="max-width: 800px; text-align: center;">
+            <h2 id="modal-id-name" style="font-family:var(--font-heading); margin-bottom:1rem;">ID Verification</h2>
+            <div
+                style="background: #000; padding: 10px; border-radius: 10px; min-height: 300px; display: flex; justify-content: center; align-items: center;">
+                <img id="modal-id-photo" src="" alt="Passport/ID Photo"
+                    style="max-width: 100%; max-height: 500px; border-radius: 5px;">
+            </div>
+            <p style="margin-top: 1rem; font-weight: bold;">ID Number: <span id="modal-id-number"
+                    style="color: var(--neon-blue);"></span></p>
+            <button onclick="closeIdModal()"
+                style="margin-top: 2rem; padding: 1rem 2rem; background: var(--neon-red); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">Close
+                Viewer</button>
+        </div>
     </div>
 
     <!-- Add Purchase Modal -->

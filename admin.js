@@ -9,6 +9,10 @@ function renderMembers() {
             <td><strong>${m.memberId}</strong></td>
             <td>${m.name}</td>
             <td>${m.email}</td>
+            <td>
+                <code>${m.idNumber || 'N/A'}</code>
+                ${m.idPhoto ? `<button class="btn-add" style="font-size:0.7rem; padding: 2px 5px; margin-left:5px;" onclick="viewId('${m.email}')">View Photo</button>` : ''}
+            </td>
             <td><span style="color:${m.status === 'Approved' ? 'green' : 'orange'}">${m.status}</span></td>
             <td>
                 ${m.status === 'Pending' ? `<button class="btn-approve" onclick="updateMemberStatus('${m.email}', 'Approved')">Approve</button>` : ''}
@@ -16,6 +20,23 @@ function renderMembers() {
             </td>
         </tr>
     `).join('');
+}
+
+function viewId(email) {
+    const members = JSON.parse(localStorage.getItem('baked_members') || '[]');
+    const user = members.find(m => m.email === email);
+    if (user && user.idPhoto) {
+        document.getElementById('modal-id-name').innerText = `ID Verification: ${user.name}`;
+        document.getElementById('modal-id-photo').src = user.idPhoto;
+        document.getElementById('modal-id-number').innerText = user.idNumber || 'None';
+        document.getElementById('id-view-modal').style.display = 'flex';
+    } else {
+        alert('No ID photo found for this user.');
+    }
+}
+
+function closeIdModal() {
+    document.getElementById('id-view-modal').style.display = 'none';
 }
 
 function updateMemberStatus(email, status) {
